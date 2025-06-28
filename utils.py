@@ -2,9 +2,10 @@
 
 import matplotlib.pyplot as plt
 from sklearn import datasets, metrics, svm
-from sklearn.model_selection import train_test_split
-
+from sklearn.model_selection import train_test_split, GridSearchCV
+import pdb 
 def load_digits_data():
+    pdb.set_trace()  
     return datasets.load_digits()
 
 def plot_training_images(digits):
@@ -24,6 +25,7 @@ def train_classifier(X_train, y_train):
     return clf
 
 def predict(clf, X_test):
+    pdb.set_trace()  
     return clf.predict(X_test)
 
 def split_data(data, targets):
@@ -66,3 +68,15 @@ def rebuild_classification_report_from_cm(disp):
 
 def show_plots():
     plt.show()
+
+def tune_hyperparameters(X_train, y_train):
+    pdb.set_trace() 
+    param_grid = {
+        'gamma': [0.001, 0.0001],
+        'C': [1, 10, 100]
+    }
+    clf = svm.SVC()
+    grid_search = GridSearchCV(clf, param_grid, cv=5)
+    grid_search.fit(X_train, y_train)
+    print(f"Best parameters found: {grid_search.best_params_}")
+    return grid_search.best_estimator_
